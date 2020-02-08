@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: faab014fcdfb8414b8eafe6b2fd2795e
+guid: 2cbbb4b6e81baa44e8b769ec451ba57b
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Fighting Idle
+    second: mixamo.com
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -35,18 +35,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fighting Idle
+      name: mixamo.com
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 119
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -59,8 +59,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: 0.40700808
         functionName: HabilitarNext
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.99191374
+        functionName: return4
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
