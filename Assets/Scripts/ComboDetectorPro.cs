@@ -29,6 +29,7 @@ public class ComboDetectorPro : MonoBehaviour
 
     string[] messages;
     string[] animationVariables;
+    bool next = true;
 
     uint comboIndex = 0;
     int animationIndex = 0;
@@ -85,8 +86,9 @@ public class ComboDetectorPro : MonoBehaviour
         };
 
         animationVariables = new string[] {
-            "punch",
-            "hook",      
+            "Attack1",
+            "Attack4",
+            "Attack3"
         };
 
         BuildNodes();
@@ -98,29 +100,20 @@ public class ComboDetectorPro : MonoBehaviour
         previousButtons = buttons; //Save buttons previous state
         buttons = 0;
 
-        buttons |= Input.GetKey(KeyCode.UpArrow) == true ? (uint)(BUTTONS.UP) : 0;
-        buttons |= Input.GetKey(KeyCode.DownArrow) == true ? (uint)(BUTTONS.DOWN) : 0;
-        buttons |= Input.GetKey(KeyCode.LeftArrow) == true ? (uint)(BUTTONS.LEFT) : 0;
-        buttons |= Input.GetKey(KeyCode.RightArrow) == true ? (uint)(BUTTONS.RIGHT) : 0;
+        buttons |= Input.GetKeyDown(KeyCode.UpArrow) == true ? (uint)(BUTTONS.UP) : 0;
+        buttons |= Input.GetKeyDown(KeyCode.DownArrow) == true ? (uint)(BUTTONS.DOWN) : 0;
+        buttons |= Input.GetKeyDown(KeyCode.LeftArrow) == true ? (uint)(BUTTONS.LEFT) : 0;
+        buttons |= Input.GetKeyDown(KeyCode.RightArrow) == true ? (uint)(BUTTONS.RIGHT) : 0;
 
-        buttons |= Input.GetKey(KeyCode.Z) == true ? (uint)(BUTTONS.Z) : 0;
-        buttons |= Input.GetKey(KeyCode.X) == true ? (uint)(BUTTONS.X) : 0;
+        buttons |= Input.GetKeyDown(KeyCode.Z) == true ? (uint)(BUTTONS.Z) : 0;
+        buttons |= Input.GetKeyDown(KeyCode.X) == true ? (uint)(BUTTONS.X) : 0;
 
         if (previousButtons != buttons)
         {
-    
-        
+
+
         }
         // textMesh.text = System.Convert.ToString(buttons, 2).PadLeft(6, '0');
-    }
-
-
-
-    void FinishRecovery()
-    {
-
-        myAnimator.SetBool(animationVariables[animationIndex], false);
-        print("VOlvi al idle");
     }
 
     // Update is called once per frame
@@ -134,6 +127,74 @@ public class ComboDetectorPro : MonoBehaviour
     bool DidButtonChange()
     {
         return (previousButtons != buttons);
+    }
+
+    void DetectCombo()
+    {
+        if (DidButtonChange() && next)
+        {
+            if (nodes[(int)comboIndex].ContainsKey(buttons))
+            {
+                //Pasar al siguiente nodo
+                comboIndex = nodes[(int)comboIndex][buttons];
+                if (buttons != 0)
+                {
+                    if (animationIndex == 2)
+                    {
+                        if (buttons == (uint)BUTTONS.RIGHT)
+                        {
+                            myAnimator.SetBool("Attack4", true);
+                        }
+                        else if (buttons == (uint)BUTTONS.UP)
+                        {
+                            myAnimator.SetBool("Attack2", true);
+                        }
+                    }
+                    else 
+                    { 
+                        myAnimator.SetBool(animationVariables[animationIndex], true);
+                    }
+                    ++animationIndex;
+                    next = false;
+                }
+
+                if (comboIndex >= (uint)BUTTONS.COMBO_END)
+                {
+                    textMesh.text = messages[comboIndex - (uint)BUTTONS.COMBO_END];
+                    Invoke("ClearComboMessage", 1);
+                    comboIndex = 0;
+
+                    ResetButtons();
+
+                }
+                else
+                {
+                    //Animacion intermedia
+                }
+            }
+            else
+            {
+                Debug.Log("Error!!");
+                textMesh.text = "ERROOOR";
+                Invoke("ClearComboMessage", 1);
+
+                comboIndex = 0;
+                animationIndex = 0;
+                next = true;
+                ResetButtons();
+            }
+            comboTime = 0;
+        }
+        else
+        {
+            //if (comboTime > maxTimeBetweenInputs)
+            //{
+            //    Debug.Log("Out of Time!!");
+            //    comboIndex = 0;
+            //    animationIndex = 0;
+            //    next = true;
+            //}
+        }
     }
 
     void BuildNodes()
@@ -177,62 +238,9 @@ public class ComboDetectorPro : MonoBehaviour
         }
     }
 
-    void DetectCombo()
+    public void HabilitarNext(float time)
     {
-        if (DidButtonChange())
-        {
-
-            if (buttons == (uint)BUTTONS.Z)
-            {
-                print("boton z");
-            }
-            
-
-
-            if (nodes[(int)comboIndex].ContainsKey(buttons))
-            {
-                //Pasar al siguiente nodo
-                comboIndex = nodes[(int)comboIndex][buttons];
-
-
-             
-
-
-                if (comboIndex >= (uint)BUTTONS.COMBO_END)
-                {
-                    Debug.Log(comboIndex);
-                    textMesh.text = messages[comboIndex - (uint)BUTTONS.COMBO_END];
-                    Invoke("ClearComboMessage", 1);
-                    comboIndex = 0;
-                  
-                    ResetButtons();
-                    
-                }
-                else
-                {
-                    //Animacion intermedia
-                }
-            }
-            else
-            {
-                Debug.Log("Error!!");
-                textMesh.text = "ERROOOR";
-                Invoke("ClearComboMessage", 1);
-              
-                comboIndex = 0;
-                ResetButtons();
-            }
-            comboTime = 0;
-        }
-        else
-        {
-            if (comboTime > maxTimeBetweenInputs)
-            {
-                Debug.Log("Out of Time!!");
-                comboIndex = 0;
-               
-            }
-        }
+        next = true;
     }
 
     void ResetButtons()
@@ -244,5 +252,64 @@ public class ComboDetectorPro : MonoBehaviour
     void ClearComboMessage()
     {
         textMesh.text = "Introduce un combo -> -> ->";
+    }
+
+    public void return1()
+    {
+        if (animationIndex >= 2)
+        {
+            if (buttons == (uint)BUTTONS.RIGHT)
+            {
+                myAnimator.SetBool("Attack4", true);
+            }
+            else if (buttons == (uint)BUTTONS.UP)
+            {
+                myAnimator.SetBool("Attack2", true);
+            }
+        }
+        else
+        {
+            myAnimator.SetBool("Attack1", false);
+            animationIndex = 0;
+        }
+    }
+
+    public void return2()
+    {
+        if (animationIndex >= 3)
+        {
+            myAnimator.SetBool("Attack3", true);
+        }
+        else
+        {
+            myAnimator.SetBool("Attack4", false);
+            myAnimator.SetBool("Attack2", false);
+            myAnimator.SetBool("Attack1", false);
+            animationIndex = 0;
+        }
+    }
+
+    public void return3()
+    {
+        myAnimator.SetBool("Attack1", false);
+        myAnimator.SetBool("Attack2", false);
+        myAnimator.SetBool("Attack3", false);
+        myAnimator.SetBool("Attack4", false);
+        animationIndex = 0;
+    }
+
+    public void return4()
+    {
+        if (animationIndex >= 3)
+        {
+            myAnimator.SetBool("Attack4", true);
+        }
+        else
+        {
+            myAnimator.SetBool("Attack4", false);
+            myAnimator.SetBool("Attack2", false);
+            myAnimator.SetBool("Attack1", false);
+            animationIndex = 0;
+        }
     }
 }

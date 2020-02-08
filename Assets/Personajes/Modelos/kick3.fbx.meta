@@ -38,7 +38,7 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 18
+      firstFrame: 22
       lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
@@ -59,15 +59,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: return3
+      - time: 0.3450271
+        functionName: HabilitarNext
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9955647
-        functionName: HabilitarNext
+      - time: 0.8951613
+        functionName: return3
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
