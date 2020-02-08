@@ -120,16 +120,14 @@ public class oldFighter : MonoBehaviour
 
     public void return1()
     {
-        print("Se llamo al return1: ");
+       // print("Se llamo al return1: ");
 
         if (attackIndex >= 2)
         {
-            print("No se volvio falso");
             myAnimator.SetBool("Attack2", true);
         }
         else
         {
-            print("se volvio falso");
             myAnimator.SetBool("Attack1", false);
             attackIndex = 0;
         }

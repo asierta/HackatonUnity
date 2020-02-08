@@ -5,7 +5,7 @@ using UnityEngine;
 public class oldMovement : MonoBehaviour
 {
     public float speed = 10;
-    Rigidbody rigidbody;
+    new Rigidbody rigidbody;
     Animator myAnimator;
 
     private Vector3 inputVector;
@@ -26,7 +26,7 @@ public class oldMovement : MonoBehaviour
 
         myAnimator.SetFloat("distanceToTarget", horizontal);
 
-        print(myAnimator.GetFloat("distanceToTarget"));
+        //print(myAnimator.GetFloat("distanceToTarget"));
         Vector3 movement = new Vector3(horizontal* speed *Time.deltaTime, 0, vertical * speed *Time.deltaTime);
         rigidbody.MovePosition(transform.position + movement);
 
