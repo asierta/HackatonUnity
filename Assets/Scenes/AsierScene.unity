@@ -140,17 +140,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: faab014fcdfb8414b8eafe6b2fd2795e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8117328
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: faab014fcdfb8414b8eafe6b2fd2795e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: faab014fcdfb8414b8eafe6b2fd2795e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0942296
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: faab014fcdfb8414b8eafe6b2fd2795e,
         type: 3}
@@ -192,6 +192,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6946812958660488783, guid: faab014fcdfb8414b8eafe6b2fd2795e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e7445cc6de55f84b95f75e0a4f17a06, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faab014fcdfb8414b8eafe6b2fd2795e, type: 3}
 --- !u!1 &46526466 stripped
@@ -213,6 +218,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attacMaxkDelay: 1
+--- !u!54 &46526470
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46526466}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
+--- !u!136 &46526471
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46526466}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.25
+  m_Height: 1.67
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.81, z: 0}
+--- !u!114 &46526472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46526466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2245630a91d9a4c8179cd1ac8585af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &257127419
 GameObject:
   m_ObjectHideFlags: 0
