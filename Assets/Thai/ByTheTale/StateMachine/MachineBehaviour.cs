@@ -35,7 +35,7 @@
             onEnter = true;
             onExit = false;
         }
-        
+
         public virtual void Update()
         {
             if (onExit)
@@ -121,7 +121,7 @@
         public virtual void OnCollisionExit(UnityEngine.Collision collision) { currentState.OnCollisionExit(collision); }
 
         public virtual void OnTriggerEnter(UnityEngine.Collider collider) { currentState.OnTriggerEnter(collider); }
-        public virtual void  OnTriggerStay(UnityEngine.Collider collider) { currentState.OnTriggerStay(collider); }
+        public virtual void OnTriggerStay(UnityEngine.Collider collider) { currentState.OnTriggerStay(collider); }
         public virtual void OnTriggerExit(UnityEngine.Collider collider) { currentState.OnTriggerExit(collider); }
 
         public void OnAnimatorIK(int layerIndex)
