@@ -30,13 +30,17 @@ public class BehaviourAlerted : ByTheTale.StateMachine.State
         {
             enemyBase.ChangeState<BehaviourSearch>();
         }
+        else if (dist > enemyBase.EnemyViewRange)
+        {
+            enemyBase.ChangeState<BehaviourSearch>();
+        }
 
         //If not close enough for the bullet to hit guatapita, get closer
         if (dist > enemyBase.BulletTotDist)
         {
             float dir = enemyBase.transform.rotation.eulerAngles.y;
             if (dir < 180) { enemyBase.MoveEnemy(Vector3.left * Time.deltaTime); }
-            else { enemyBase.GetComponent<CharacterController>().Move(Vector3.right * enemyBase.Speed * Time.deltaTime); }
+            else { enemyBase.MoveEnemy(Vector3.right * Time.deltaTime); }
         }
     }
 }

@@ -27,7 +27,7 @@ public class BehaviourSearch : ByTheTale.StateMachine.State
         //Get char rotation
         float dir = enemyBase.transform.rotation.eulerAngles.y;
         if (dir < 180) { enemyBase.MoveEnemy(Vector3.left * Time.deltaTime); }//enemyBase.GetComponent<CharacterController>().Move(Vector3.right * enemyBase.Speed * Time.deltaTime); }
-        else { enemyBase.GetComponent<CharacterController>().Move(Vector3.right * enemyBase.Speed * Time.deltaTime); }
+        else { enemyBase.MoveEnemy(Vector3.right * Time.deltaTime); }
 
         //CAST RAY TO SEARCH FOR GUATAPITA, if MATCH, change state
         if (enemyBase.CastRayForwardToFindPlayer())
