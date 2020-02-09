@@ -10,11 +10,14 @@ public class HitCollider : MonoBehaviour
     public int damage;
     public GameObject fighter;
 
+    private Shake shake;
+
     Animator myAnimator;
 
     void Start()
     {
         myAnimator = fighter.GetComponent<Animator>();
+        shake = GameObject.FindGameObjectWithTag("ScreenShake").GetComponent<Shake>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,6 +28,8 @@ public class HitCollider : MonoBehaviour
 
         if (otherObject != null && otherObject != fighter && damageable != null && canDamage == true)
         {
+            shake.CamShake();
+
             //Patadas
             if (kick)
             {
