@@ -10,6 +10,12 @@ public class oldMovement : MonoBehaviour
 
     public GameObject floorCheck;
 
+    [Header("Movement Axis")]
+    public string horizontalAxis;
+    public string verticalAxis;
+
+    public KeyCode jumpKey;
+
 
 
 
@@ -35,8 +41,14 @@ public class oldMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+
+        if (this.GetComponent<oldFighter>().isDead())
+        {
+            return;
+        }
+
+        float horizontal = Input.GetAxisRaw(horizontalAxis);
+        float vertical = Input.GetAxisRaw(verticalAxis);
 
         myAnimator.SetFloat("distanceToTarget", horizontal);
 
@@ -45,7 +57,7 @@ public class oldMovement : MonoBehaviour
         rigidbody.MovePosition(transform.position + movement);
 
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(jumpKey))
         {
 
             if (floorCheck.GetComponent<FloorCheck>().isGrounded== true)
