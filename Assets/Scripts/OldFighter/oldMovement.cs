@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class oldMovement : MonoBehaviour
 {
-    public float speed = 10;
+    public float speed;
     new Rigidbody rigidbody;
     Animator myAnimator;
+
+    public GameObject floorCheck;
+
+
+
+
 
     private Vector3 inputVector;
 
@@ -15,8 +21,16 @@ public class oldMovement : MonoBehaviour
     {
         rigidbody = this.GetComponent<Rigidbody>();
         myAnimator = this.GetComponent<Animator>();
+
+
+      
     }
 
+    void FixedUpdate()
+    {
+        rigidbody.AddForce(Physics.gravity * (rigidbody.mass + 2));
+        //rigidbody.velocity = inputVector*2;  
+    }
 
     // Update is called once per frame
     void Update()
@@ -33,19 +47,19 @@ public class oldMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            rigidbody.AddForce(transform.up * 9.5f, ForceMode.Impulse); // mass affects
-            print("Holi soy el salto");
+
+            if (floorCheck.GetComponent<FloorCheck>().isGrounded== true)
+            {
+                rigidbody.AddForce(transform.up * 11.2f, ForceMode.Impulse); // mass affects
+                print("Holi soy el salto");
+            }
+              
+           
         }
 
     }
 
 
-
-    void FixedUpdate()
-    {
-        rigidbody.AddForce(Physics.gravity * (rigidbody.mass + 1));
-        //rigidbody.velocity = inputVector*2;       
-    }
 
 
 }
