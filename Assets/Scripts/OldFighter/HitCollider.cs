@@ -44,7 +44,7 @@ public class HitCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameObject otherObject = other.gameObject;
-        IDamageable damageable = otherObject.GetComponent<Enemy>() as IDamageable;
+        IDamageable damageable = otherObject.GetComponent<oldFighter>() as IDamageable;
         bool canDamage = fighter.GetComponent<oldFighter>().CanIDamage();
 
         if (otherObject != null && otherObject != fighter && damageable != null && canDamage == true)

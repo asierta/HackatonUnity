@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class oldFighter : MonoBehaviour
+public class oldFighter : MonoBehaviour, IDamageable
 {
     Animator myAnimator;   
     
     AudioSource audioData;
 
-
+    public float health = 100;
     public  AudioClip generic, punch, kick1, kick2;
+    public KeyCode attackKey;
  
     int attackIndex = 0;
     float timeSinceLastAttack = 0;
@@ -42,23 +43,25 @@ public class oldFighter : MonoBehaviour
             KeyCode.Z});
     }
 
+    public bool isDead()
+    {
+        return health <= 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (isDead())
+        {
+            return;
+        }
         timeSinceLastAttack += Time.deltaTime; //Tiempo que tiene para concatenar ataques.
         UpdateButtons();
     }
 
-
-
-
-
-
-
-
     void UpdateButtons()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(attackKey))
         {
             //Aseguramos que siempre podamos hacer un ataque desde el inicio
             if (!firstAttackDone)
@@ -179,4 +182,23 @@ public class oldFighter : MonoBehaviour
         attackIndex = 0;
     }
 
+    public void OnDamage(int value)
+    {
+        if (health - value <= 0)
+        {
+            //gameController.SendMessage("GameObjectDestroyed", gameObject.name);
+
+            myAnimator.SetBool("isDead", true);
+        //Destroy(gameObject, 2);
+        }
+        health -= value;
+        print(this.name + " damaged " + value + " points");
+    }
+
+
+
+    public void Death()
+    {
+        myAnimator.SetBool("isDead", false);
+    }
 }
