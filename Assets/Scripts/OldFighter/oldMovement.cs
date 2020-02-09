@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class oldMovement : MonoBehaviour
 {
-    public float speed = 10;
+    public float speed;
     new Rigidbody rigidbody;
     Animator myAnimator;
 
+    public GameObject floorCheck;
 
-    //To check if it is touching the floor
-    float distanceToground;
-    public bool isGrounded = false;
 
 
 
@@ -25,27 +23,13 @@ public class oldMovement : MonoBehaviour
         myAnimator = this.GetComponent<Animator>();
 
 
-        distanceToground = GetComponent<Collider>().bounds.extents.y;
+      
     }
 
     void FixedUpdate()
     {
         rigidbody.AddForce(Physics.gravity * (rigidbody.mass + 2));
-        //rigidbody.velocity = inputVector*2;       
-
-        if (!Physics.Raycast(transform.position, -Vector3.up, distanceToground + 0.3f))
-        {
-            isGrounded = false;
-            print("On the air");
-            myAnimator.SetBool("isGrounded", false);
-        }
-        else
-        {
-            isGrounded = true;
-            print("Ob thle floor");
-            myAnimator.SetBool("isGrounded", true);
-        }
-
+        //rigidbody.velocity = inputVector*2;  
     }
 
     // Update is called once per frame
@@ -63,8 +47,14 @@ public class oldMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            rigidbody.AddForce(transform.up * 11.2f, ForceMode.Impulse); // mass affects
-            print("Holi soy el salto");
+
+            if (floorCheck.GetComponent<FloorCheck>().isGrounded== true)
+            {
+                rigidbody.AddForce(transform.up * 11.2f, ForceMode.Impulse); // mass affects
+                print("Holi soy el salto");
+            }
+              
+           
         }
 
     }
