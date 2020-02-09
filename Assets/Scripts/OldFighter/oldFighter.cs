@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class oldFighter : MonoBehaviour
 {
-    Animator myAnimator;
+    Animator myAnimator;   
+    
     AudioSource audioData;
+
+
+    public  AudioClip generic, punch, kick1, kick2;
+ 
     int attackIndex = 0;
     float timeSinceLastAttack = 0;
 
@@ -24,7 +29,7 @@ public class oldFighter : MonoBehaviour
     void Start()
     {
         myAnimator = this.GetComponent<Animator>();
-        audioData = GetComponents<AudioSource>()[1];
+        audioData = GetComponent<AudioSource>();
 
         combos.Add(new KeyCode[]{
             KeyCode.Z,
@@ -43,6 +48,13 @@ public class oldFighter : MonoBehaviour
         timeSinceLastAttack += Time.deltaTime; //Tiempo que tiene para concatenar ataques.
         UpdateButtons();
     }
+
+
+
+
+
+
+
 
     void UpdateButtons()
     {
@@ -67,12 +79,14 @@ public class oldFighter : MonoBehaviour
                         attackIndex++;
                         canDamage = true;
                         next = false;
-                        audioData.Play();
+                       // PlaySound(generic);
                     }
 
                     if (attackIndex == 1)
                     {
                         myAnimator.SetBool("Attack1", true);
+                        PlaySound(generic);
+
                     }
                     attackIndex = Mathf.Clamp(attackIndex, 0, 3);
                 }
@@ -81,7 +95,7 @@ public class oldFighter : MonoBehaviour
                     attackIndex++;
                     canDamage = true;
                     myAnimator.SetBool("Attack1", true);
-                    audioData.Play();
+                    PlaySound(generic);
 
                 }
             }
@@ -89,42 +103,9 @@ public class oldFighter : MonoBehaviour
         }
     }
 
-    void Buttons2()
-    {
-        //    foreach (KeyCode[] combo in combos)
-        //    {
-        //        if (attackIndex <= combo.Length - 1)
-        //        { 
-        //            print(combo[attackIndex]);
-        //        }
-        //    }
+      
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            if (timeSinceLastAttack < attacMaxkDelay)
-            {
-                if (next == true)
-                {
-                    attackIndex++;
-                    next = false;
-                }
-
-                if (attackIndex == 1)
-                {
-                    myAnimator.SetBool("Attack1", true);
-                }
-                attackIndex = Mathf.Clamp(attackIndex, 0, 3);
-            }
-            timeSinceLastAttack = 0;
-        }
-    }
-
-
-    public void HabilitarNext(float time)
-    {
-        next = true;
-    }
-
+    //Collider functions
     public bool CanIDamage()
     {
         return canDamage;
@@ -136,6 +117,31 @@ public class oldFighter : MonoBehaviour
     }
 
 
+    //Sound
+    public  void PlaySound(AudioClip sonido) {
+
+        audioData.clip = sonido;
+        audioData.Play();
+    }
+
+    public  void PlayOneShotSound(AudioClip sonido)
+    {
+        audioData.PlayOneShot(sonido,1);
+    }
+
+    public void PlayGeneric()
+    {
+        audioData.PlayOneShot(generic, 1);
+    }
+
+
+    //To connect more than one hit
+    public void HabilitarNext(float time)
+    {
+        next = true;
+    }
+
+    //Animation Finicsh Events
     public void return1()
     {
         // print("Se llamo al return1: ");
