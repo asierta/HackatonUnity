@@ -14,6 +14,10 @@ public class oldFighter : MonoBehaviour
 
     bool next = true;
     bool firstAttackDone = false;
+    //Se activa cada vez que se pulsa la tecla de ataque. 
+    //Se desactiva una vez ese ataque haya colisionado con algo Damageable. 
+    //De esta forma se evita que un mismo ataque quite vida al enemigo varias veces
+    bool canDamage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +39,10 @@ public class oldFighter : MonoBehaviour
     void Update()
     {
         timeSinceLastAttack += Time.deltaTime; //Tiempo que tiene para concatenar ataques.
-        Buttons();
-
+        UpdateButtons();
     }
 
-    void Buttons()
+    void UpdateButtons()
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -52,14 +55,15 @@ public class oldFighter : MonoBehaviour
 
             if (firstAttackDone == true)
             {
-              //  print("Next: " + next);
-               // print("Attack index: " + attackIndex);
+                //  print("Next: " + next);
+                // print("Attack index: " + attackIndex);
 
                 if (timeSinceLastAttack < attacMaxkDelay)
                 {
                     if (next == true)
                     {
                         attackIndex++;
+                        canDamage = true;
                         next = false;
                     }
 
@@ -72,6 +76,7 @@ public class oldFighter : MonoBehaviour
                 else
                 {
                     attackIndex++;
+                    canDamage = true;
                     myAnimator.SetBool("Attack1", true);
                 }
             }
@@ -116,11 +121,20 @@ public class oldFighter : MonoBehaviour
         next = true;
     }
 
+    public bool CanIDamage()
+    {
+        return canDamage;
+    }
+
+    public void CantDamage()
+    {
+        canDamage = false;
+    }
 
 
     public void return1()
     {
-       // print("Se llamo al return1: ");
+        // print("Se llamo al return1: ");
 
         if (attackIndex >= 2)
         {

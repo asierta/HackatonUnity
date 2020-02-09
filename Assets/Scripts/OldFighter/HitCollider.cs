@@ -21,8 +21,9 @@ public class HitCollider : MonoBehaviour
     {
         GameObject otherObject = other.gameObject;
         IDamageable damageable = otherObject.GetComponent<Enemy>() as IDamageable;
+        bool canDamage = fighter.GetComponent<oldFighter>().CanIDamage();
 
-        if (otherObject != null && otherObject != fighter && damageable != null)
+        if (otherObject != null && otherObject != fighter && damageable != null && canDamage == true)
         {
             //Patadas
             if (kick)
@@ -31,6 +32,7 @@ public class HitCollider : MonoBehaviour
                 if (myAnimator.GetBool("Attack2") || myAnimator.GetBool("Attack3"))
                 {
                     damageable.OnDamage(damage);
+                    fighter.GetComponent<oldFighter>().CantDamage();
                 }
             }
             //Puñetazos
@@ -40,6 +42,7 @@ public class HitCollider : MonoBehaviour
                 if (myAnimator.GetBool("Attack1"))
                 {
                     damageable.OnDamage(damage);
+                    fighter.GetComponent<oldFighter>().CantDamage();
                 }
             }
         }
