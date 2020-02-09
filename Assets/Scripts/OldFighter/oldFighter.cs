@@ -5,6 +5,7 @@ using UnityEngine;
 public class oldFighter : MonoBehaviour
 {
     Animator myAnimator;
+    AudioSource audioData;
     int attackIndex = 0;
     float timeSinceLastAttack = 0;
 
@@ -23,6 +24,7 @@ public class oldFighter : MonoBehaviour
     void Start()
     {
         myAnimator = this.GetComponent<Animator>();
+        audioData = GetComponents<AudioSource>()[1];
 
         combos.Add(new KeyCode[]{
             KeyCode.Z,
@@ -65,6 +67,7 @@ public class oldFighter : MonoBehaviour
                         attackIndex++;
                         canDamage = true;
                         next = false;
+                        audioData.Play();
                     }
 
                     if (attackIndex == 1)
@@ -78,9 +81,10 @@ public class oldFighter : MonoBehaviour
                     attackIndex++;
                     canDamage = true;
                     myAnimator.SetBool("Attack1", true);
+                    audioData.Play();
+
                 }
             }
-
             timeSinceLastAttack = 0;
         }
     }

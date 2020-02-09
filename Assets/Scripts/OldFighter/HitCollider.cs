@@ -13,11 +13,15 @@ public class HitCollider : MonoBehaviour
     private Shake shake;
 
     Animator myAnimator;
+    AudioSource punchAudio;
+    AudioSource kickAudio;
 
     void Start()
     {
         myAnimator = fighter.GetComponent<Animator>();
         shake = GameObject.FindGameObjectWithTag("ScreenShake").GetComponent<Shake>();
+        punchAudio = fighter.GetComponents<AudioSource>()[0];
+        kickAudio = fighter.GetComponents<AudioSource>()[2];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,6 +40,7 @@ public class HitCollider : MonoBehaviour
                // print(punchName);
                 if (myAnimator.GetBool("Attack2") || myAnimator.GetBool("Attack3"))
                 {
+                    kickAudio.Play();
                     damageable.OnDamage(damage);
                     fighter.GetComponent<oldFighter>().CantDamage();
                 }
@@ -46,6 +51,7 @@ public class HitCollider : MonoBehaviour
                 //print("puño");
                 if (myAnimator.GetBool("Attack1"))
                 {
+                    punchAudio.Play();
                     damageable.OnDamage(damage);
                     fighter.GetComponent<oldFighter>().CantDamage();
                 }
