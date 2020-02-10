@@ -56,7 +56,7 @@ public class HitCollider : MonoBehaviour
                 if (myAnimator.GetBool("Attack2") || myAnimator.GetBool("Attack3"))
                 {
                     //kickAudio.Play();
-                    shake.CamShake();
+                    shake.CamShake("shake2");
                     oldScript.PlayOneShotSound(oldScript.kick1);
                     damageable.OnDamage(damage);
                     fighter.GetComponent<oldFighter>().CantDamage();
@@ -69,7 +69,7 @@ public class HitCollider : MonoBehaviour
                 if (myAnimator.GetBool("Attack1"))
                 {
                     //punchAudio.Play();
-                    shake.CamShake();
+                    shake.CamShake("shake");
                     oldScript.PlayOneShotSound(oldScript.punch);
                     damageable.OnDamage(damage);
                     fighter.GetComponent<oldFighter>().CantDamage();

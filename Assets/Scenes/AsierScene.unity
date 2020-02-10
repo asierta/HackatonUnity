@@ -506,6 +506,8 @@ MonoBehaviour:
   player2: {fileID: 795929095}
   P1: {fileID: 435315788}
   P2: {fileID: 1323292827}
+  narratorAudios:
+  - {fileID: 8300000, guid: 59b17f7b23840d241bef3ef97aa25747, type: 3}
 --- !u!4 &479253080
 Transform:
   m_ObjectHideFlags: 0
