@@ -194,13 +194,13 @@ public class oldFighter : MonoBehaviour, IDamageable
     {
         if (health - value <= 0)
         {
-            //gameController.SendMessage("GameObjectDestroyed", gameObject.name);
-
             myAnimator.SetBool("isDead", true);
-        //Destroy(gameObject, 2);
+            health -= value;
         }
-        health -= value;
-        //print(this.name + " damaged " + value + " points");
+        else 
+        { 
+            health -= value;
+        }
     }
 
 

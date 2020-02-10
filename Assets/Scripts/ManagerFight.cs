@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ManagerFight : MonoBehaviour
 {
@@ -31,11 +32,22 @@ public class ManagerFight : MonoBehaviour
     {
         //Seleccion
 
-        //In puase
+        //In pause
 
         //In game
         P1.value = Mathf.Clamp01(player1.GetComponent<oldFighter>().health / 100f);
         P2.value = Mathf.Clamp01(player2.GetComponent<oldFighter>().health / 100f);
+
+        if (P1.value <= 0 || P2.value <= 0)
+        {
+
+            Invoke("loadMainMenu", 3);
+            //print("endGame");
+            //ambient.volume = 0.2f;
+            // narrator.PlayOneShot(narratorAudios[1]);
+            //narrator.volume = 0.2f;
+            //narrator.PlayOneShot(narratorAudios[1]);
+        }
     }
 
     IEnumerator playSoundWithDelay(AudioClip clip, float delay)
@@ -47,5 +59,10 @@ public class ManagerFight : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         sources.volume = volume;
+    }
+
+    void loadMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
