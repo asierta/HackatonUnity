@@ -10,15 +10,11 @@ public class oldMovement : MonoBehaviour
 
     public GameObject floorCheck;
 
-    [Header("Movement Axis")]
+    [Header("MovementAxis")]
     public string horizontalAxis;
     public string verticalAxis;
 
     public KeyCode jumpKey;
-
-
-
-
 
     private Vector3 inputVector;
 
@@ -26,10 +22,7 @@ public class oldMovement : MonoBehaviour
     void Start()
     {
         rigidbody = this.GetComponent<Rigidbody>();
-        myAnimator = this.GetComponent<Animator>();
-
-
-      
+        myAnimator = this.GetComponent<Animator>();   
     }
 
     void FixedUpdate()
@@ -57,7 +50,6 @@ public class oldMovement : MonoBehaviour
             if (floorCheck.GetComponent<FloorCheck>().isGrounded == true)
             {
                 rigidbody.AddForce(transform.up * 11.2f, ForceMode.Impulse); // mass affects
-                print("Holi soy el salto");
             }
         }
     }

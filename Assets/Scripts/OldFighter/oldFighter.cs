@@ -11,7 +11,9 @@ public class oldFighter : MonoBehaviour, IDamageable
     public float health = 100;
     public  AudioClip generic, punch, kick1, kick2;
     public KeyCode attackKey;
- 
+
+    public GameObject[] colliders;
+
     int attackIndex = 0;
     float timeSinceLastAttack = 0;
 
@@ -82,13 +84,15 @@ public class oldFighter : MonoBehaviour, IDamageable
                         attackIndex++;
                         canDamage = true;
                         next = false;
-                       // PlaySound(generic);
+                        //colliders[0].GetComponent<HitCollider>().enableParticles();
                     }
 
                     if (attackIndex == 1)
                     {
                         myAnimator.SetBool("Attack1", true);
                         PlaySound(generic);
+                        colliders[0].GetComponent<HitCollider>().enableParticles();
+
 
                     }
                     attackIndex = Mathf.Clamp(attackIndex, 0, 3);
@@ -99,6 +103,8 @@ public class oldFighter : MonoBehaviour, IDamageable
                     canDamage = true;
                     myAnimator.SetBool("Attack1", true);
                     PlaySound(generic);
+                    colliders[0].GetComponent<HitCollider>().enableParticles();
+
 
                 }
             }
@@ -158,6 +164,8 @@ public class oldFighter : MonoBehaviour, IDamageable
             myAnimator.SetBool("Attack1", false);
             attackIndex = 0;
         }
+        colliders[0].GetComponent<HitCollider>().disableParticles();
+
     }
 
     public void return2()
@@ -192,7 +200,7 @@ public class oldFighter : MonoBehaviour, IDamageable
         //Destroy(gameObject, 2);
         }
         health -= value;
-        print(this.name + " damaged " + value + " points");
+        //print(this.name + " damaged " + value + " points");
     }
 
 

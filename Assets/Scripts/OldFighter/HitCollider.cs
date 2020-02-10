@@ -9,7 +9,7 @@ public class HitCollider : MonoBehaviour
     public bool kick;
     public bool punch;
     public int damage;
-   
+
 
     [HideInInspector]
     public GameObject fighter;
@@ -19,13 +19,23 @@ public class HitCollider : MonoBehaviour
     Animator myAnimator;
 
     oldFighter oldScript;
+    new ParticleSystem particleSystem;
 
 
     void Awake()
     {
+        if (punchName == "Puño")
+        {
+            particleSystem = this.gameObject.GetComponent<ParticleSystem>();
+            if (particleSystem)
+            {
+                disableParticles();
+            }
+        }
+
         fighter = transform.root.gameObject;
 
-        print(fighter.name);
+        //print(fighter.name);
 
         oldScript = fighter.GetComponent<oldFighter>();
     }
@@ -52,7 +62,7 @@ public class HitCollider : MonoBehaviour
             //Patadas
             if (kick)
             {
-               // print(punchName);
+                // print(punchName);
                 if (myAnimator.GetBool("Attack2") || myAnimator.GetBool("Attack3"))
                 {
                     //kickAudio.Play();
@@ -78,7 +88,15 @@ public class HitCollider : MonoBehaviour
         }
     }
 
+    public void enableParticles()
+    {
+        particleSystem.Play();
+    }
 
+    public void disableParticles()
+    {
+        particleSystem.Stop();
+    }
 
 
 
