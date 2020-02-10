@@ -26,16 +26,16 @@ public class FloorCheck : MonoBehaviour
         Debug.DrawRay(transform.position, -Vector3.up * (distanceToground + 0.5f), Color.red, 2);
         if (Physics.Raycast(transform.position, -Vector3.up, out hit, distanceToground + 0.2f, layer_mask))
         {
-            print(hit.transform.gameObject.layer);
+            //print(hit.transform.gameObject.layer);
 
             isGrounded = true;
-            print("Ob thle floor");
+            //print("Ob thle floor");
             myAnimator.SetBool("isGrounded", true);
         }
         else
         {
             isGrounded = false;
-            print("On the air");
+           // print("On the air");
             myAnimator.SetBool("isGrounded", false);
         }
 
